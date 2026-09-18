@@ -211,7 +211,6 @@
       border-top: 6px solid white;
     }
 
-    /* Floating Kiss/Hug Heart Particle */
     .kiss-hug-pop {
       position: absolute;
       font-size: 20px;
@@ -226,7 +225,6 @@
       100% { opacity: 0; transform: translateY(-40px) scale(1); }
     }
 
-    /* Pixel Art Treasure Chest */
     .treasure-chest {
       position: absolute;
       width: 36px;
@@ -262,7 +260,6 @@
       border-radius: 2px;
     }
 
-    /* Scattered Love Note Envelopes */
     .love-note {
       position: absolute;
       width: 26px;
@@ -289,7 +286,6 @@
       100% { transform: translateY(-4px); }
     }
 
-    /* Map Details */
     .flower {
       position: absolute;
       width: 12px;
@@ -397,40 +393,32 @@
   </div>
 
   <div id="world">
-    <!-- Dirt Paths -->
     <div style="top: 200px; left: 80px; width: 900px; height: 80px; background:#e0a96d; border:3px solid #b87b43; position:absolute;"></div>
     <div style="top: 200px; left: 600px; width: 80px; height: 700px; background:#e0a96d; border:3px solid #b87b43; position:absolute;"></div>
     <div style="top: 820px; left: 100px; width: 1100px; height: 80px; background:#e0a96d; border:3px solid #b87b43; position:absolute;"></div>
     <div style="top: 360px; left: 100px; width: 220px; height: 380px; background:#d49859; border:3px solid #a66a33; position:absolute;"></div>
 
-    <!-- House -->
     <div class="house" style="top: 60px; left: 150px;">
       <div class="house-roof"></div>
       <div class="house-door"></div>
     </div>
 
-    <!-- Tall Grass Areas -->
     <div class="tall-grass" style="top: 350px; left: 800px;"></div>
     <div class="tall-grass" style="top: 600px; left: 200px;"></div>
 
-    <!-- Trees -->
     <div style="top:20px; left:20px; position:absolute; width:48px; height:60px; background:#1b4d2e; border-radius: 24px 24px 8px 8px; border:3px solid #0d2b18;"></div>
     <div style="top:20px; left:70px; position:absolute; width:48px; height:60px; background:#1b4d2e; border-radius: 24px 24px 8px 8px; border:3px solid #0d2b18;"></div>
     <div style="top:900px; left:800px; position:absolute; width:48px; height:60px; background:#1b4d2e; border-radius: 24px 24px 8px 8px; border:3px solid #0d2b18;"></div>
     <div style="top:900px; left:860px; position:absolute; width:48px; height:60px; background:#1b4d2e; border-radius: 24px 24px 8px 8px; border:3px solid #0d2b18;"></div>
 
-    <!-- Blossom Trees -->
     <div style="top: 40px; left: 400px; position:absolute; width:56px; height:56px; background:#ffc8dd; border-radius:50%; border:3px solid #9b72cf; box-shadow: inset -6px -6px 0 #e4d8f0;"></div>
     <div style="top: 100px; left: 360px; position:absolute; width:56px; height:56px; background:#ffc8dd; border-radius:50%; border:3px solid #9b72cf; box-shadow: inset -6px -6px 0 #e4d8f0;"></div>
 
-    <!-- Ponds -->
     <div style="position:absolute; top:60px; left:1100px; width:300px; height:180px; background:#4fc3f7; border:4px solid #0288d1; border-radius:30px;"></div>
     <div style="position:absolute; top:580px; left:1120px; width:250px; height:240px; background:#4fc3f7; border:4px solid #0288d1; border-radius:24px;"></div>
 
-    <!-- Bridge -->
     <div style="position:absolute; top:190px; left:1160px; width:70px; height:100px; background:#8d6e63; border:3px solid #4e342e; z-index:2;"></div>
 
-    <!-- Flowers -->
     <div class="flower" style="top: 300px; left: 400px;"></div>
     <div class="flower" style="top: 320px; left: 430px; background: #ffee58; border-color: #fbc02d;"></div>
     <div class="flower" style="top: 290px; left: 450px;"></div>
@@ -439,19 +427,16 @@
       <span style="color:#9b72cf; font-size:18px;">♥</span>
     </div>
 
-    <!-- Treasure Chests -->
     <div id="chest1" class="treasure-chest" style="top:110px; left:1240px;"></div>
     <div id="chest2" class="treasure-chest" style="top:660px; left:260px;"></div>
     <div id="chest3" class="treasure-chest" style="top:410px; left:880px;"></div>
 
-    <!-- Scattered Love Notes -->
     <div id="note1" class="love-note" style="top:220px; left:420px;"></div>
     <div id="note2" class="love-note" style="top:110px; left:220px;"></div>
     <div id="note3" class="love-note" style="top:500px; left:720px;"></div>
     <div id="note4" class="love-note" style="top:480px; left:1000px;"></div>
     <div id="note5" class="love-note" style="top:850px; left:1150px;"></div>
 
-    <!-- Entities -->
     <canvas id="player" width="48" height="48" style="position:absolute; top:220px; left:120px; image-rendering:pixelated; z-index:10;"></canvas>
     <canvas id="target-npc" width="48" height="48" style="position:absolute; top:150px; left:620px; image-rendering:pixelated; z-index:10;"></canvas>
   </div>
@@ -496,13 +481,14 @@
   function startAudioTrack() {
     ensureAudioContext();
 
-    // Warm up the kiss sound effect track inside user interaction
+    // Unlock and prime the Kiss SFX element immediately inside user interaction
     const kissSFX = document.getElementById('kiss-sfx');
     if (kissSFX) {
+      kissSFX.volume = 1.0;
       kissSFX.play().then(() => {
         kissSFX.pause();
         kissSFX.currentTime = 0;
-      }).catch(e => console.log('SFX unlock error:', e));
+      }).catch(e => console.log('SFX unlock handled:', e));
     }
 
     const bgm = document.getElementById('custom-bgm');
@@ -583,27 +569,22 @@
     { id: 'note5', x: 1150, y: 850, collected: false, msg: "\"You are my whole universe! 🌌\"" }
   ];
 
-  // Lavender Light Purple Palette
   const P = {
     PD: '#4A355A',  
     PM: '#A084DC',  
     PL: '#BFACE2',  
     PPA: '#E8DDFF', 
     PH: '#F1EAFF',  
-    
     PKD: '#E599B2', 
     PKM: '#FFC8DD', 
     PKL: '#FFE5EC', 
-    
     SKD: '#F7C5B8', 
     SKM: '#FFF0EA', 
-    
     W: '#FFFFFF',   
     S: '#E2D3F5',   
     BM: '#B08968'   
   };
 
-  // Draw Left Girl (Player)
   function drawPlayerSprite(canvas) {
     const ctx = canvas.getContext('2d');
     canvas.width = 48;
@@ -679,7 +660,6 @@
     p(bx + 6, by + 4, P.PD);
   }
 
-  // Draw Right Girl (Target NPC)
   function drawTargetSprite(canvas) {
     const ctx = canvas.getContext('2d');
     canvas.width = 48;
@@ -772,7 +752,7 @@
     checkInteractions(false);
   }
 
-  // Trigger Kiss & Hug Action on B
+  // Fixed Kiss & Hug Action Button B Handler
   function triggerKissAndHug() {
     if (!gameStarted) return;
     ensureAudioContext();
@@ -780,7 +760,11 @@
     const kissSFX = document.getElementById('kiss-sfx');
     if (kissSFX) {
       kissSFX.currentTime = 0;
-      kissSFX.play().catch(e => console.log('Audio error:', e));
+      kissSFX.play().catch(e => {
+        console.log('Kiss SFX play error, attempting fallback reload:', e);
+        kissSFX.load();
+        kissSFX.play().catch(err => console.log('Fallback failed:', err));
+      });
     }
 
     const pop = document.createElement('div');
