@@ -340,6 +340,23 @@
       border: 3px solid #1b5e20;
       border-radius: 12px;
     }
+
+    /* Pixel Name Tag Styles */
+    .name-tag {
+      position: absolute;
+      font-size: 9px;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: bold;
+      color: #ff99cc;
+      background: rgba(30, 15, 45, 0.85);
+      border: 1px solid #ffc8dd;
+      padding: 1px 4px;
+      border-radius: 3px;
+      white-space: nowrap;
+      z-index: 25;
+      text-shadow: 1px 1px 0px #000;
+      letter-spacing: 0.5px;
+    }
   </style>
 </head>
 <body>
@@ -393,6 +410,19 @@
   </div>
 
   <div id="world">
+    <!-- Pokémon World Landscape Enhancements: Fences & Bushes -->
+    <!-- Wooden Fences -->
+    <div style="top: 180px; left: 50px; width: 150px; height: 16px; background: #c29b61; border: 2px solid #5a3d1e; position: absolute; z-index: 2;"></div>
+    <div style="top: 180px; left: 250px; width: 250px; height: 16px; background: #c29b61; border: 2px solid #5a3d1e; position: absolute; z-index: 2;"></div>
+    <div style="top: 780px; left: 100px; width: 300px; height: 16px; background: #c29b61; border: 2px solid #5a3d1e; position: absolute; z-index: 2;"></div>
+    <div style="top: 340px; left: 550px; width: 16px; height: 250px; background: #c29b61; border: 2px solid #5a3d1e; position: absolute; z-index: 2;"></div>
+
+    <!-- Extra Pixel Bushes / Shrubs -->
+    <div style="top: 300px; left: 500px; position:absolute; width:48px; height:48px; background:#1b4d2e; border-radius: 20px 20px 8px 8px; border:3px solid #0d2b18; z-index:3;"></div>
+    <div style="top: 300px; left: 544px; position:absolute; width:48px; height:48px; background:#1b4d2e; border-radius: 20px 20px 8px 8px; border:3px solid #0d2b18; z-index:3;"></div>
+    <div style="top: 500px; left: 750px; position:absolute; width:48px; height:48px; background:#1b4d2e; border-radius: 20px 20px 8px 8px; border:3px solid #0d2b18; z-index:3;"></div>
+    <div style="top: 750px; left: 600px; position:absolute; width:48px; height:48px; background:#1b4d2e; border-radius: 20px 20px 8px 8px; border:3px solid #0d2b18; z-index:3;"></div>
+
     <div style="top: 200px; left: 80px; width: 900px; height: 80px; background:#e0a96d; border:3px solid #b87b43; position:absolute;"></div>
     <div style="top: 200px; left: 600px; width: 80px; height: 700px; background:#e0a96d; border:3px solid #b87b43; position:absolute;"></div>
     <div style="top: 820px; left: 100px; width: 1100px; height: 80px; background:#e0a96d; border:3px solid #b87b43; position:absolute;"></div>
@@ -438,7 +468,12 @@
     <div id="note5" class="love-note" style="top:850px; left:1150px;"></div>
 
     <canvas id="player" width="48" height="48" style="position:absolute; top:220px; left:120px; image-rendering:pixelated; z-index:10;"></canvas>
+    <!-- Name tag for matyu on top of purple girl (player) -->
+    <div id="player-name" class="name-tag" style="top: 206px; left: 128px;">matyu</div>
+
     <canvas id="target-npc" width="48" height="48" style="position:absolute; top:150px; left:620px; image-rendering:pixelated; z-index:10;"></canvas>
+    <!-- Name tag for paris on top of pink bestie (NPC) -->
+    <div id="npc-name" class="name-tag" style="top: 136px; left: 630px;">paris</div>
   </div>
 </div>
 
@@ -457,7 +492,7 @@
   <div class="action-btns">
     <div class="action-btn" onclick="triggerKissAndHug()">
       <span class="label">B</span>
-      <span class="sub">Kiss/Hug</span>
+      <span class="sub">Kiss</span>
     </div>
     <div class="action-btn" onclick="checkInteractions(true)">
       <span class="label">A</span>
@@ -481,7 +516,6 @@
   function startAudioTrack() {
     ensureAudioContext();
 
-    // Unlock and prime the Kiss SFX element immediately inside user interaction
     const kissSFX = document.getElementById('kiss-sfx');
     if (kissSFX) {
       kissSFX.volume = 1.0;
@@ -539,6 +573,7 @@
   }
 
   const player = document.getElementById('player');
+  const playerNameTag = document.getElementById('player-name');
   const world = document.getElementById('world');
 
   let playerX = 120;
@@ -552,7 +587,7 @@
   const chestMessages = [
     "\"I miss you sm! 💖\"",
     "\"I'm here for you, always. ✨\"",
-    "\"You make my world brighter! 🌸\""
+    "\"I will always come home to you🌸\""
   ];
 
   const chests = [
@@ -563,10 +598,10 @@
 
   const scatteredNotes = [
     { id: 'note1', x: 420, y: 220, collected: false, msg: "\"I love you! 💖\"" },
-    { id: 'note2', x: 220, y: 110, collected: false, msg: "\"Keep going, lovey! ✨\"" },
-    { id: 'note3', x: 720, y: 500, collected: false, msg: "\"I kiss you! 💋\"" },
+    { id: 'note2', x: 220, y: 110, collected: false, msg: "\"Keep going, baby! ✨\"" },
+    { id: 'note3', x: 720, y: 500, collected: false, msg: "\"I miss you! 💋\"" },
     { id: 'note4', x: 1000, y: 480, collected: false, msg: "\"I will love you forever! 🌸\"" },
-    { id: 'note5', x: 1150, y: 850, collected: false, msg: "\"You are my whole universe! 🌌\"" }
+    { id: 'note5', x: 1150, y: 850, collected: false, msg: "\"You're very precious to me!🌌\"" }
   ];
 
   const P = {
@@ -746,13 +781,16 @@
 
     player.style.left = playerX + 'px';
     player.style.top = playerY + 'px';
+    
+    // Update player name tag position dynamically with the character
+    playerNameTag.style.left = (playerX + 8) + 'px';
+    playerNameTag.style.top = (playerY - 14) + 'px';
 
     playCuteSound('step');
     updateCamera();
     checkInteractions(false);
   }
 
-  // Fixed Kiss & Hug Action Button B Handler
   function triggerKissAndHug() {
     if (!gameStarted) return;
     ensureAudioContext();
@@ -769,7 +807,7 @@
 
     const pop = document.createElement('div');
     pop.className = 'kiss-hug-pop';
-    pop.innerText = '💖';
+    pop.innerText = '💋';
     pop.style.left = (playerX + 14) + 'px';
     pop.style.top = (playerY - 20) + 'px';
     world.appendChild(pop);
